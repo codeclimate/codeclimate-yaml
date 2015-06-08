@@ -13,4 +13,6 @@ Gem::Specification.new do |s|
 
   s.files         = Dir["lib/**/*.rb"]
   s.require_paths = ["lib"]
+
+  s.add_dependency 'secure_string'
 end

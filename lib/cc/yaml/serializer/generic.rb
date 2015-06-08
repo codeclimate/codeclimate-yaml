@@ -1,3 +1,5 @@
+require 'secure_string'
+
 module CC::Yaml
   module Serializer
     class Generic
