@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    codeclimate-yaml (0.0.1)
+    codeclimate-yaml (0.0.2)
       secure_string
 
 GEM
@@ -35,4 +35,4 @@ DEPENDENCIES
   pry
 
 BUNDLED WITH
-   1.10.2
+   1.10.3
