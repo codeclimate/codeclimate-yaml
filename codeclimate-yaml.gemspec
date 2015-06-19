@@ -15,4 +15,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'secure_string'
+  s.add_dependency 'psych', '~> 2.0.13'
 end
