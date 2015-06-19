@@ -16,4 +16,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'secure_string'
   s.add_dependency 'psych', '~> 2.0.13'
+  s.add_dependency "activesupport"
 end
