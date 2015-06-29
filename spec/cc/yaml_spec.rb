@@ -17,6 +17,13 @@ describe CC::Yaml do
       config = CC::Yaml.parse!("foo: bar", ".codeclimate.yml", logger)
       output.string.must_match '.codeclimate.yml: unexpected key "foo", dropping'
     end
+
+    it "returns a tailored warning for 'languages' key" do
+      output = StringIO.new
+      logger = Logger.new(output)
+      config = CC::Yaml.parse!("languages: ruby", ".codeclimate.yml", logger)
+      output.string.must_match '.codeclimate.yml: analysis by language not available via CLI. Use engines configuration instead.'
+    end
   end
 
   describe ".new" do
