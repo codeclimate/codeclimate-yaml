@@ -55,6 +55,7 @@ module CC::Yaml
       end
 
       def visit_key_value(visitor, key, value)
+        return warning("analysis by language not available via CLI. Use engines configuration instead.") if key == "languages" && !(node = subnode_for(key))
         return warning("unexpected key %p, dropping", key) unless node = subnode_for(key)
         warning("has multiple %p entries, keeping last entry", key) if self[key]
         self[key] = node
