@@ -51,15 +51,31 @@ module CC::Yaml
 
       def visit_pair(visitor, key, value)
         key = visitor.generate_key(self, key)
-        visit_key_value(visitor, key, value)
+        if get_warnings(key)
+          get_warnings(key)
+        else
+          visit_key_value(visitor, key, value)
+        end
       end
 
       def visit_key_value(visitor, key, value)
-        return warning("analysis by language not available via CLI. Use engines configuration instead.") if key == "languages" && !(node = subnode_for(key))
-        return warning("unexpected key %p, dropping", key) unless node = subnode_for(key)
-        warning("has multiple %p entries, keeping last entry", key) if self[key]
+        node = subnode_for(key)
         self[key] = node
         visitor.accept(node, value)
+      end
+
+      def get_warnings(key)
+        if subnode_for(key)
+          check_duplicates(key)
+        elsif key == "languages"
+          warning("analysis by language not available via CLI. Use engines configuration instead.")
+        else
+          warning("unexpected key %p, dropping", key)
+        end
+      end
+
+      def check_duplicates(key)
+        warning("has multiple %p entries, keeping last entry", key) if self[key]
       end
 
       def []=(key, value)
