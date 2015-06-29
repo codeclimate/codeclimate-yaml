@@ -7,3 +7,11 @@ Rake::TestTask.new do |t|
 end
 
 task(default: :test)
+
+desc "load console"
+
+task :console do
+  require "pry"
+  require_relative "environment.rb"
+  binding.pry(quiet: true, prompt: Pry::SIMPLE_PROMPT, output: $stdout)
+end
