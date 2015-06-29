@@ -12,6 +12,6 @@ desc "load console"
 
 task :console do
   require "pry"
-  require_relative "environment.rb"
+  require_relative "console.rb"
   binding.pry(quiet: true, prompt: Pry::SIMPLE_PROMPT, output: $stdout)
 end
