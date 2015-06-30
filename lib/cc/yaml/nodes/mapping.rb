@@ -51,9 +51,7 @@ module CC::Yaml
 
       def visit_pair(visitor, key, value)
         key = visitor.generate_key(self, key)
-        if get_warnings(key)
-          get_warnings(key)
-        else
+        unless set_warnings(key)
           visit_key_value(visitor, key, value)
         end
       end
@@ -64,7 +62,7 @@ module CC::Yaml
         visitor.accept(node, value)
       end
 
-      def get_warnings(key)
+      def set_warnings(key)
         if subnode_for(key)
           check_duplicates(key)
         elsif key == "languages"
