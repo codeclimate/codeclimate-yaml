@@ -5,6 +5,8 @@ module CC
       autoload :EngineList, "cc/yaml/nodes/engine_list"
       autoload :Glob, "cc/yaml/nodes/glob"
       autoload :GlobList, "cc/yaml/nodes/glob_list"
+      autoload :Language, "cc/yaml/nodes/language"
+      autoload :LanguageList, "cc/yaml/nodes/language_list"
       autoload :Mapping, "cc/yaml/nodes/mapping"
       autoload :Node, "cc/yaml/nodes/node"
       autoload :OpenMapping, "cc/yaml/nodes/open_mapping"
