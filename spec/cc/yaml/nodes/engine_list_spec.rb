@@ -14,8 +14,8 @@ describe CC::Yaml::Nodes::EngineList do
   specify "with languages already present, it throws a warning" do
     config = CC::Yaml.parse! <<-YAML
       languages:
-      - "Ruby"
-      - "JavaScript"
+        Ruby: true
+        JavaScript: true
       engines:
         rubocop:
           enabled: true
@@ -26,13 +26,13 @@ describe CC::Yaml::Nodes::EngineList do
   specify "with languages already present, it drops engines key and keeps languages" do
     config = CC::Yaml.parse! <<-YAML
       languages:
-      - "Ruby"
-      - "JavaScript"
+        Ruby: true
+        JavaScript: true
       engines:
         rubocop:
           enabled: true
     YAML
     config.engines.must_equal nil
-    config.languages.must_equal ["Ruby", "JavaScript"]
+    config.languages.must_equal({ "Ruby" => true, "JavaScript" => true })
   end
 end
