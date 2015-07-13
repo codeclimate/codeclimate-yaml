@@ -7,7 +7,7 @@ describe CC::Yaml::Nodes::LanguageList do
       - Ruby
       - JavaScript
       - Python
-          YAML
+    YAML
     config.languages.size.must_equal 3
     config.languages.must_equal ["Ruby", "JavaScript", "Python"]
   end
@@ -21,7 +21,7 @@ describe CC::Yaml::Nodes::LanguageList do
       - Ruby
       - JavaScript
       - Python
-          YAML
+    YAML
     config.warnings.must_include "engines key already found, dropping key: languages. Analysis settings for Languages and Engines are both valid but mutually exclusive. Note: command line analysis requires an Engines configuration."
   end
 
@@ -34,8 +34,7 @@ describe CC::Yaml::Nodes::LanguageList do
       - Ruby
       - JavaScript
       - Python
-          YAML
-
+    YAML
     config.engines.keys.must_equal ["rubocop"]
     config.languages.must_equal nil
   end

@@ -9,7 +9,7 @@ module CC
         end
 
         def name
-          self.to_s
+          to_s
         end
 
         def appears_to_be_mispelled_version_of?
@@ -22,10 +22,8 @@ module CC
 
         def downcased_language_map
           @downcased_language_map ||=
-          begin
-            LANGUAGES.each_with_object({}) do |language, obj|
-              obj[language.downcase] = language
-            end
+          LANGUAGES.each_with_object({}) do |language, obj|
+            obj[language.downcase] = language
           end
         end
       end

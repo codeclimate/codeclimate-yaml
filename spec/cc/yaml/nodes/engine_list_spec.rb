@@ -6,7 +6,7 @@ describe CC::Yaml::Nodes::EngineList do
       engines:
         foo:
           enabled: true
-          YAML
+    YAML
     config.engines.size.must_equal 1
     config.engines.keys.must_equal ["foo"]
   end
@@ -19,8 +19,7 @@ describe CC::Yaml::Nodes::EngineList do
       engines:
         rubocop:
           enabled: true
-          YAML
-
+    YAML
     config.warnings.must_include "languages key already found, dropping key: engines. Analysis settings for Languages and Engines are both valid but mutually exclusive. Note: command line analysis requires an Engines configuration."
   end
 
@@ -32,7 +31,7 @@ describe CC::Yaml::Nodes::EngineList do
       engines:
         rubocop:
           enabled: true
-          YAML
+    YAML
     config.engines.must_equal nil
     config.languages.must_equal ["Ruby", "JavaScript"]
   end
