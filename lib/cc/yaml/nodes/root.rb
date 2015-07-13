@@ -7,6 +7,7 @@ module CC
       class Root < Mapping
         map :engines, to: EngineList
         map :exclude_paths, to: GlobList
+        map :languages, to: LanguageList
         map :ratings, to: Ratings
 
         def initialize
