@@ -65,15 +65,10 @@ module CC::Yaml
       def set_warnings(key)
         if subnode_for(key)
           check_duplicates(key)
-        elsif key == "languages"
-          warning("analysis by language not available via CLI. Use engines configuration instead.")
+          check_incompatibility(key)
         else
           warning("unexpected key %p, dropping", key)
         end
-      end
-
-      def check_duplicates(key)
-        warning("has multiple %p entries, keeping last entry", key) if self[key]
       end
 
       def []=(key, value)
@@ -178,11 +173,33 @@ module CC::Yaml
 
       protected
 
-        def dup_values
-          duped_mapping = @mapping.map { |key, value| [key.dup, value.dup] }
-          @mapping      = Hash[duped_mapping]
-          self
+      def dup_values
+        duped_mapping = @mapping.map { |key, value| [key.dup, value.dup] }
+        @mapping      = Hash[duped_mapping]
+        self
+      end
+
+      def check_duplicates(key)
+        warning("has multiple %p entries, keeping last entry", key) if self[key]
+      end
+
+      def check_incompatibility(key)
+        if creates_incompatibility?(key)
+          warning("#{extant_engines_or_languages_key} key already found, dropping key: #{key}. Analysis settings for Languages and Engines are both valid but mutually exclusive. Note: command line analysis requires an Engines configuration.", key)
         end
+      end
+
+      def extant_engines_or_languages_key
+        if self["engines"]
+          "engines"
+        elsif self["languages"]
+          "languages"
+        end
+      end
+
+      def creates_incompatibility?(key)
+        (key == "engines" && self["languages"]) || (key == "languages" && self["engines"])
+      end
     end
   end
 end

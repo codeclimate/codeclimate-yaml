@@ -1,7 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe CC::Yaml::Nodes::EngineList do
-  specify 'with engines' do
+  specify "with engines" do
     config = CC::Yaml.parse! <<-YAML
 engines:
   foo:
