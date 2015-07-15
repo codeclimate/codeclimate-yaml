@@ -1,12 +1,12 @@
-require 'spec_helper'
-require 'logger'
+require "spec_helper"
+require "logger"
 
 describe CC::Yaml do
   describe ".parse" do
     it "returns a node" do
-      config = CC::Yaml.parse('yargle: bargle')
+      config = CC::Yaml.parse("yargle: bargle")
       config.class.must_equal CC::Yaml::Nodes::Root
-      config.nested_warnings.must_equal [[[], 'unexpected key "yargle", dropping']]
+      config.nested_warnings.must_equal [[[], 'unexpected key "yargle", dropping'], [[], CC::Yaml::Parser::Psych::WARNING_NO_ANALYSIS_KEY_FOUND]]
     end
   end
 

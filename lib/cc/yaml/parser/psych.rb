@@ -4,6 +4,8 @@ require 'delegate'
 module CC::Yaml
   module Parser
     class Psych
+      WARNING_NO_ANALYSIS_KEY_FOUND = "No languages or engines key found. Must have analysis key.".freeze
+
       class SetNode < DelegateClass(::Psych::Nodes::Mapping)
         def children
           super.select.with_index { |_,i| i.even? }
@@ -79,12 +81,18 @@ module CC::Yaml
         parsed   = @value if @value.is_a? ::Psych::Nodes::Node
         parsed ||= ::Psych.parse(@value)
         accept(root, parsed)
+        check_for_analysis_key(root)
         root
       rescue ::Psych::SyntaxError => error
         root.verify
         root.warnings.clear
         root.error("syntax error: %s", error.message)
-        root
+      end
+
+      def check_for_analysis_key(root)
+        unless root.engines? || root.languages?
+          root.warnings << WARNING_NO_ANALYSIS_KEY_FOUND
+        end
       end
 
       def accept(node, value)
