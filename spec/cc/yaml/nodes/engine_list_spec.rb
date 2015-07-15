@@ -12,7 +12,7 @@ describe CC::Yaml::Nodes::EngineList do
   end
 
   specify "with languages already present, it throws a warning" do
-    config = CC::Yaml.parse! <<-YAML
+    config = CC::Yaml.parse <<-YAML
       languages:
         Ruby: true
         JavaScript: true
