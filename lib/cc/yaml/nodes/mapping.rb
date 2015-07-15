@@ -1,7 +1,7 @@
 module CC::Yaml
   module Nodes
     class Mapping < Node
-      INCOMPATIBLE_KEYS_WARNING = "Warning: Use either a Languages key or an Engines key, but not both. They are mutually exclusive.".freeze
+      INCOMPATIBLE_KEYS_WARNING = "Use either a Languages key or an Engines key, but not both. They are mutually exclusive.".freeze
 
       def self.mapping
         @mapping ||= superclass.respond_to?(:mapping) ? superclass.mapping.dup : {}
