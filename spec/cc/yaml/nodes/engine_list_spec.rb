@@ -12,7 +12,7 @@ describe CC::Yaml::Nodes::EngineList do
   end
 
   specify "with languages already present, it throws a warning" do
-    config = CC::Yaml.parse! <<-YAML
+    config = CC::Yaml.parse <<-YAML
       languages:
         Ruby: true
         JavaScript: true
@@ -20,11 +20,11 @@ describe CC::Yaml::Nodes::EngineList do
         rubocop:
           enabled: true
     YAML
-    config.warnings.must_include "languages key already found, dropping key: engines. Analysis settings for Languages and Engines are both valid but mutually exclusive. Note: command line analysis requires an Engines configuration."
+    config.warnings.must_include CC::Yaml::Nodes::Mapping::INCOMPATIBLE_KEYS_WARNING
   end
 
   specify "with languages already present, it drops engines key and keeps languages" do
-    config = CC::Yaml.parse! <<-YAML
+    config = CC::Yaml.parse <<-YAML
       languages:
         Ruby: true
         JavaScript: true

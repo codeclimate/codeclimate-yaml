@@ -1,7 +1,7 @@
 module CC::Yaml
   module Nodes
     class Mapping < Node
-      INCOMPATIBLE_KEYS_WARNING = "Analysis settings for Languages and Engines are both valid but mutually exclusive. Note: command line analysis requires an Engines configuration.".freeze
+      INCOMPATIBLE_KEYS_WARNING = "Use either a Languages key or an Engines key, but not both. They are mutually exclusive.".freeze
 
       def self.mapping
         @mapping ||= superclass.respond_to?(:mapping) ? superclass.mapping.dup : {}
@@ -187,19 +187,7 @@ module CC::Yaml
 
       def check_incompatibility(key)
         if creates_incompatibility?(key)
-          warning(incompatibility_message(key), key)
-        end
-      end
-
-      def incompatibility_message(key)
-        "#{extant_engines_or_languages_key} key already found, dropping key: #{key}. #{INCOMPATIBLE_KEYS_WARNING}"
-      end
-
-      def extant_engines_or_languages_key
-        if self["engines"]
-          "engines"
-        elsif self["languages"]
-          "languages"
+          warning(INCOMPATIBLE_KEYS_WARNING, key)
         end
       end
 
