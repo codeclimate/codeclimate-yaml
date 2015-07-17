@@ -8,6 +8,12 @@ describe CC::Yaml do
       config.class.must_equal CC::Yaml::Nodes::Root
       config.nested_warnings.must_equal [[[], 'unexpected key "yargle", dropping'], [[], CC::Yaml::Parser::Psych::WARNING_NO_ANALYSIS_KEY_FOUND]]
     end
+
+    it "returns a node with errors" do
+      config = CC::Yaml.parse("yargle: poskgp;aerwet ;rgr:  ")
+      config.class.must_equal CC::Yaml::Nodes::Root
+      config.errors.must_equal ["syntax error: (<unknown>): mapping values are not allowed in this context at line 1 column 27"]
+    end
   end
 
   describe ".parse!" do
