@@ -12,7 +12,7 @@ describe CC::Yaml do
     it "returns a node with errors" do
       config = CC::Yaml.parse("yargle: poskgp;aerwet ;rgr:  ")
       config.class.must_equal CC::Yaml::Nodes::Root
-      (config.errors.size > 1).must_equal true
+      config.errors.must_equal ["syntax error: (<unknown>): mapping values are not allowed in this context at line 1 column 27"]
     end
   end
 
