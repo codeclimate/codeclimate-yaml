@@ -8,6 +8,12 @@ describe CC::Yaml do
       config.class.must_equal CC::Yaml::Nodes::Root
       config.nested_warnings.must_equal [[[], 'unexpected key "yargle", dropping'], [[], CC::Yaml::Parser::Psych::WARNING_NO_ANALYSIS_KEY_FOUND]]
     end
+
+    it "returns a node with errors" do
+      config = CC::Yaml.parse("yargle: poskgp;aerwet ;rgr:  ")
+      config.class.must_equal CC::Yaml::Nodes::Root
+      (config.errors.size > 1).must_equal true
+    end
   end
 
   describe ".parse!" do
