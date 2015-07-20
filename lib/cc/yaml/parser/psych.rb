@@ -92,7 +92,7 @@ module CC::Yaml
 
       def check_for_analysis_key(root)
         unless root.engines? || root.languages?
-          root.warnings << WARNING_NO_ANALYSIS_KEY_FOUND
+          root.error WARNING_NO_ANALYSIS_KEY_FOUND
         end
       end
 

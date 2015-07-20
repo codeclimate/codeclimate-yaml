@@ -187,7 +187,7 @@ module CC::Yaml
 
       def check_incompatibility(key)
         if creates_incompatibility?(key)
-          warning(INCOMPATIBLE_KEYS_WARNING, key)
+          error INCOMPATIBLE_KEYS_WARNING
         end
       end
 
