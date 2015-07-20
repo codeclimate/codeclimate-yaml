@@ -4,7 +4,7 @@ require 'delegate'
 module CC::Yaml
   module Parser
     class Psych
-      WARNING_NO_ANALYSIS_KEY_FOUND = "No languages or engines key found. Must have analysis key.".freeze
+      NO_ANALYSIS_KEY_FOUND_ERROR = "No languages or engines key found. Must have analysis key.".freeze
 
       class SetNode < DelegateClass(::Psych::Nodes::Mapping)
         def children
@@ -92,7 +92,7 @@ module CC::Yaml
 
       def check_for_analysis_key(root)
         unless root.engines? || root.languages?
-          root.warnings << WARNING_NO_ANALYSIS_KEY_FOUND
+          root.error NO_ANALYSIS_KEY_FOUND_ERROR
         end
       end
 

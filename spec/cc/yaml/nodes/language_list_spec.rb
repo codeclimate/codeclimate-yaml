@@ -22,7 +22,7 @@ describe CC::Yaml::Nodes::LanguageList do
         JavaScript: true
         Python: false
     YAML
-    config.warnings.must_include CC::Yaml::Nodes::Mapping::INCOMPATIBLE_KEYS_WARNING
+    config.errors.must_include CC::Yaml::Nodes::Mapping::INCOMPATIBLE_KEYS_ERROR
   end
 
   specify "with engines already present, it leaves engines key and drops languages key" do
