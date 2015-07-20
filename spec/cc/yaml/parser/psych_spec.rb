@@ -8,6 +8,6 @@ describe CC::Yaml::Parser::Psych do
       - "test/*"
     YAML
     config = CC::Yaml.parse yaml
-    config.errors.must_include CC::Yaml::Parser::Psych::WARNING_NO_ANALYSIS_KEY_FOUND
+    config.errors.must_include CC::Yaml::Parser::Psych::NO_ANALYSIS_KEY_FOUND_ERROR
   end
 end
