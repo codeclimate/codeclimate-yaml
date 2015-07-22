@@ -27,7 +27,7 @@ module CC
         end
 
         def rate?(path)
-          ratings.present? && ratings.rate?(path)
+          ratings.present? && ratings.rate?(path) && !exclude?(path)
         end
       end
     end
