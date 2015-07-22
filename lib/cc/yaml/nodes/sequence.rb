@@ -1,6 +1,9 @@
 module CC::Yaml
   module Nodes
     class Sequence < Node
+      DOUBLE_STAR_DIR_ENDING = Regexp.new('\/\*\*$').freeze
+      DOUBLE_STAR_EXT_BEGINNING = Regexp.new('\*\*\.').freeze
+
       attr_reader :children
       alias_method :__getobj__, :children
 
@@ -32,8 +35,18 @@ module CC::Yaml
 
       def visit_child(visitor, value)
         child = self.class.type.new(self)
+        normalize_path_endings(value)
         visitor.accept(child, value)
         @children << child
+      end
+
+      def normalize_path_endings(value)
+        return unless value.class == Psych::Nodes::Scalar
+        if DOUBLE_STAR_DIR_ENDING.match(value.value)
+          value.value += "/*"
+        elsif DOUBLE_STAR_EXT_BEGINNING.match(value.value)
+          value.value.sub!(DOUBLE_STAR_EXT_BEGINNING, "**/*.")
+        end
       end
 
       def nested_warnings(*prefix)
@@ -44,7 +57,7 @@ module CC::Yaml
 
       def ==(other)
         other = other.children if other.is_a? Sequence
-        if other.respond_to? :to_a and other.to_a.size == children.size
+        if other.respond_to? :to_a && other.to_a.size == children.size
           children.zip(other.to_a).all? { |a, b| a == b }
         else
           identifier == other

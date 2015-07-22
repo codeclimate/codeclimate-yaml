@@ -40,6 +40,28 @@ module CC::Yaml::Nodes
       example.must_equal(["foo", "bar", "baz"])
     end
 
+    it "normalizes format for directory path endings that use app/** format only, making all 'app/**/*'" do
+      example = parse_example(<<-EOYAML)
+        example:
+        - foo/**
+        - bar/**/*
+        - baz
+      EOYAML
+
+      example.must_equal(["foo/**/*", "bar/**/*", "baz"])
+    end
+
+    it "normalizes format for extension path beginnings that use **.xy format only, making all '**/*.xy'" do
+      example = parse_example(<<-EOYAML)
+        example:
+        - "**.rb"
+        - "**/*.js"
+        - ".go"
+      EOYAML
+
+      example.must_equal(["**/*.rb", "**/*.js", ".go"])
+    end
+
     def parse_example(yaml)
       CC::Yaml.parse(yaml).example
     end
