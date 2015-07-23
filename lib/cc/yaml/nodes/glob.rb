@@ -3,7 +3,7 @@ module CC
     module Nodes
       class Glob < Scalar
         def value
-          @value.sub(%r{\*\*\.}, "**/*.").sub(%r{\/\*\*$}, "/**/*")
+          @value.sub(/\*\*\./, "**/*.").sub(%r{/\*\*$}, "/**/*")
         end
       end
     end
