@@ -39,4 +39,19 @@ engines:
     json = config.engines.map { |_,v| v.to_json }.first
     json.must_equal %{{"enabled":true}}
   end
+
+  specify 'checks' do
+    config = CC::Yaml.parse! <<-YAML
+engines:
+  rubocop:
+    enabled: true
+    checks:
+      Style/StringLiteral:
+        enabled: false
+    YAML
+
+    checks = config.engines["rubocop"].checks
+    check = checks["Style/StringLiteral"]
+    check.enabled?.must_equal false
+  end
 end

@@ -1,9 +1,8 @@
 module CC
   module Yaml
     module Nodes
-      class Engine < Mapping
+      class Check < Mapping
         map :enabled, to: Scalar[:bool], required: true
-        map :checks, to: Checks
       end
     end
   end
