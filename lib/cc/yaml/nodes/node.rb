@@ -97,8 +97,8 @@ module CC
           __getobj__.to_s
         end
 
-        def to_json(options = nil)
-          Serializer::Json.serialize(self, options)
+        def as_json(options = nil)
+          __getobj__.as_json(options)
         end
 
         def with_value(value)
