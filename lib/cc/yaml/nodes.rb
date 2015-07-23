@@ -1,6 +1,8 @@
 module CC
   module Yaml
     module Nodes
+      autoload :Check, "cc/yaml/nodes/check"
+      autoload :Checks, "cc/yaml/nodes/checks"
       autoload :Engine, "cc/yaml/nodes/engine"
       autoload :EngineList, "cc/yaml/nodes/engine_list"
       autoload :Glob, "cc/yaml/nodes/glob"
