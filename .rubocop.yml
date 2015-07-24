@@ -7,6 +7,10 @@ Style/Documentation:
 Metrics/LineLength:
   Enabled: false
 
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+  AllowInnerSlashes: false
+
 Style/TrailingComma:
   Enabled: false
 

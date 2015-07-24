@@ -21,14 +21,6 @@ module CC
         def inspect
           "#<#{self.class.name}:#{super}>"
         end
-
-        def exclude?(path)
-          exclude_paths.present? && exclude_paths.match_any?(path)
-        end
-
-        def rate?(path)
-          ratings.present? && ratings.rate?(path)
-        end
       end
     end
   end
