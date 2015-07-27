@@ -113,9 +113,9 @@ module CC
 
         protected
 
-          def dup_values
-            self
-          end
+        def dup_values
+          self
+        end
       end
     end
   end

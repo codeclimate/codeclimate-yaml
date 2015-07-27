@@ -1,3 +1,5 @@
+require "yaml"
+
 module CC
   module Yaml
     autoload :Nodes, "cc/yaml/nodes"
@@ -17,6 +19,10 @@ module CC
       end
 
       result
+    end
+
+    def self.dump(value)
+      YAML.dump(value)
     end
 
     def self.new

@@ -77,12 +77,16 @@ module CC::Yaml
         if mapped_key = mapped_key(key)
           unless value.is_a? Node
             node  = subnode_for(mapped_key)
-            value = node if Parser::Ruby.new(value).parse(node)
+            value = node if Parser::Psych.new(yamelize(value)).parse(node)
           end
           @mapping[mapped_key] = value
         else
           warning("unexpected key %p, dropping", key)
         end
+      end
+
+      def yamelize(value)
+        CC::Yaml.dump(value)
       end
 
       def [](key)
