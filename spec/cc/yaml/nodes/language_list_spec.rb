@@ -25,7 +25,7 @@ describe CC::Yaml::Nodes::LanguageList do
     config.warnings.must_include CC::Yaml::Nodes::Mapping::INCOMPATIBLE_KEYS_WARNING
   end
 
-  specify "with engines already present, it leaves engines key and drops languages key" do
+  specify "with engines already present, it keeps both engines and languages keys" do
     config = CC::Yaml.parse <<-YAML
       engines:
         rubocop:
@@ -36,6 +36,6 @@ describe CC::Yaml::Nodes::LanguageList do
         Python: false
     YAML
     config.engines.keys.must_equal ["rubocop"]
-    config.languages.must_equal nil
+    config.languages.must_equal({ "Ruby" => true, "JavaScript" => true, "Python" => false })
   end
 end
