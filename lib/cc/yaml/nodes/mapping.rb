@@ -39,6 +39,18 @@ module CC::Yaml
         mapping[aliases.fetch(key.to_s, key.to_s)]
       end
 
+      def self.prefix_scalar(key = nil, *types)
+        @prefix_scalar ||= superclass.respond_to?(:prefix_scalar) ? superclass.prefix_scalar : nil
+        if key
+          @prefix_scalar = key.to_s
+          define_method(:visit_scalar) do |visitor, type, value, _implicit = true|
+            return super(visitor, type, value, _implicit = true) if types.any? && !types.include?(type)
+            visit_key_value(visitor, key, value)
+          end
+        end
+        @prefix_scalar
+      end
+
       attr_reader :mapping
       alias_method :__getobj__, :mapping
 

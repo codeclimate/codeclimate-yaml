@@ -54,4 +54,29 @@ engines:
     check = checks["Style/StringLiteral"]
     check.enabled?.must_equal false
   end
+
+  specify "config" do
+    yaml = CC::Yaml.parse <<-YAML
+engines:
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: "php"
+    YAML
+
+    config = yaml.engines["phpcodesniffer"].config
+    config.must_equal("file_extensions" => "php")
+  end
+
+  specify "config" do
+    yaml = CC::Yaml.parse <<-YAML
+engines:
+  phpcodesniffer:
+    enabled: true
+    config: "config.php"
+    YAML
+
+    config = yaml.engines["phpcodesniffer"].config
+    config.must_equal("file" => "config.php")
+  end
 end
