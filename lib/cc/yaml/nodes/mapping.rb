@@ -54,6 +54,7 @@ module CC::Yaml
       def visit_pair(visitor, key, value)
         key = visitor.generate_key(self, key)
         unless set_warnings(key)
+          check_incompatibility(key)
           visit_key_value(visitor, key, value)
         end
       end
@@ -67,7 +68,6 @@ module CC::Yaml
       def set_warnings(key)
         if subnode_for(key)
           check_duplicates(key)
-          check_incompatibility(key)
         else
           warning("unexpected key %p, dropping", key)
         end
