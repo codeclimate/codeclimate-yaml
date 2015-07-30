@@ -1,5 +1,6 @@
 #### Git
 
+- FIX: Allow config key
 - FIX: don't raise an exception when attempting to assign to a mapped node
 
 #### 0.2.1 - July 29, 2015
