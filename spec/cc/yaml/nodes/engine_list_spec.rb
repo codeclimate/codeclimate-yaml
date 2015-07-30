@@ -20,7 +20,7 @@ describe CC::Yaml::Nodes::EngineList do
         rubocop:
           enabled: true
     YAML
-    config.errors.must_include CC::Yaml::Nodes::Mapping::INCOMPATIBLE_KEYS_ERROR
+    config.warnings.must_include CC::Yaml::Nodes::Mapping::INCOMPATIBLE_KEYS_WARNING
   end
 
   specify "with languages already present, it drops engines key and keeps languages" do
