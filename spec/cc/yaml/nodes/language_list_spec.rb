@@ -9,7 +9,7 @@ describe CC::Yaml::Nodes::LanguageList do
         Python: false
     YAML
     config.languages.size.must_equal 3
-    config.languages.must_equal({ "Ruby" => true, "JavaScript" => true, "Python" => false })
+    config.languages.must_equal("Ruby" => true, "JavaScript" => true, "Python" => false)
   end
 
   specify "with engines already present, it throws an incompatibility warning" do
@@ -36,6 +36,6 @@ describe CC::Yaml::Nodes::LanguageList do
         Python: false
     YAML
     config.engines.keys.must_equal ["rubocop"]
-    config.languages.must_equal({ "Ruby" => true, "JavaScript" => true, "Python" => false })
+    config.languages.must_equal("Ruby" => true, "JavaScript" => true, "Python" => false)
   end
 end

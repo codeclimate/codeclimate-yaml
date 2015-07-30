@@ -32,7 +32,7 @@ describe CC::Yaml::Nodes::EngineList do
         rubocop:
           enabled: true
     YAML
-    config.engines.must_equal({ "rubocop" => { "enabled" => true } })
-    config.languages.must_equal({ "Ruby" => true, "JavaScript" => true })
+    config.engines.must_equal("rubocop" => { "enabled" => true })
+    config.languages.must_equal("Ruby" => true, "JavaScript" => true)
   end
 end
