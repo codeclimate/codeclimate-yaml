@@ -54,4 +54,31 @@ engines:
     check = checks["Style/StringLiteral"]
     check.enabled?.must_equal false
   end
+
+  specify 'assignment of raw value' do
+    config = CC::Yaml.parse! <<-YAML
+engines:
+  rubocop:
+    enabled: true
+    YAML
+
+    config.engines["rubocop"].enabled = false
+    config.engines["rubocop"].enabled?.must_equal false
+  end
+
+  specify 'assignment of subnode' do
+    config_1 = CC::Yaml.parse! <<-YAML
+engines:
+  rubocop:
+    enabled: true
+    YAML
+    config_2 = CC::Yaml.parse! <<-YAML
+engines:
+  eslint:
+    enabled: true
+    YAML
+
+    config_2.engines = config_1.engines
+    config_2.engines["rubocop"].enabled?.must_equal true
+  end
 end
