@@ -94,7 +94,7 @@ module CC::Yaml
         return value.dup if value.is_a? self.class
         value = value.children if value.is_a? Sequence
         value = value.value while value.is_a? Scalar
-        Parser::Ruby.new(Array(value)).parse self.class.new(parent)
+        Parser::Psych.new(Array(value)).parse self.class.new(parent)
       end
 
       def with_value!(value)

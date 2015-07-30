@@ -31,4 +31,13 @@ describe CC::Yaml do
       config.class.must_equal CC::Yaml::Nodes::Root
     end
   end
+
+  describe ".dump" do
+    it "returns a yamelized form of value" do
+      value = { "yargle" => true }
+      yamelized_value = CC::Yaml.dump(value)
+
+      yamelized_value.must_equal("---\nyargle: true\n")
+    end
+  end
 end

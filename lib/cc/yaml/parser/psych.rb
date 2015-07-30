@@ -81,13 +81,19 @@ module CC::Yaml
         parsed   = @value if @value.is_a? ::Psych::Nodes::Node
         parsed ||= ::Psych.parse(@value)
         accept(root, parsed)
-        check_for_analysis_key(root)
+        check_for_analysis_key_if_needed(root)
         root
       rescue ::Psych::SyntaxError => error
         root.verify
         root.warnings.clear
         root.error("syntax error: %s", error.message)
         root
+      end
+
+      def check_for_analysis_key_if_needed(root)
+        if root.respond_to? :engines?
+          check_for_analysis_key(root)
+        end
       end
 
       def check_for_analysis_key(root)
