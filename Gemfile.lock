@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    codeclimate-yaml (0.2.0)
+    codeclimate-yaml (0.2.1)
       activesupport
       secure_string
 
