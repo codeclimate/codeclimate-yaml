@@ -111,7 +111,7 @@ module CC::Yaml
       end
 
       def accept_key?(key)
-        self.class.mapping.include?(key)
+        self.class.mapping.include? key
       end
 
       def subnode_for(key)
