@@ -79,4 +79,29 @@ engines:
     config = yaml.engines["phpcodesniffer"].config
     config.must_equal("file" => "config.php")
   end
+
+  specify "arbitrary config values" do
+    yaml = CC::Yaml.parse <<-YAML
+engines:
+  phpcodesniffer:
+    enabled: true
+    config:
+      x: "y"
+      z:
+        a: "b"
+        c:
+          x: [1, 2, 3]
+          y:
+          - 4
+          - 5
+          - 6
+    YAML
+
+    config = yaml.engines["phpcodesniffer"].config
+
+    config["x"].must_equal "y"
+    config["z"]["a"].must_equal "b"
+    config["z"]["c"]["x"].must_equal [1, 2, 3]
+    config["z"]["c"]["y"].must_equal [4, 5, 6]
+  end
 end
