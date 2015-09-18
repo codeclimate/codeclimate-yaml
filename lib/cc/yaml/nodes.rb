@@ -4,7 +4,6 @@ module CC
       autoload :Check, "cc/yaml/nodes/check"
       autoload :Checks, "cc/yaml/nodes/checks"
       autoload :Engine, "cc/yaml/nodes/engine"
-      autoload :EngineConfig, "cc/yaml/nodes/engine_config"
       autoload :EngineList, "cc/yaml/nodes/engine_list"
       autoload :Glob, "cc/yaml/nodes/glob"
       autoload :GlobList, "cc/yaml/nodes/glob_list"
