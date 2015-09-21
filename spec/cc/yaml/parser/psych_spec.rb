@@ -25,7 +25,7 @@ describe CC::Yaml::Parser::Psych do
     YAML
 
     parsed_yaml = CC::Yaml.parse yaml
-    config = parsed_yaml["engines"]["duplication"].config
+    config = parsed_yaml.engines["duplication"].config
 
     assert !config.empty?
     assert_equal config["ruby"]["mass_threshold"], 10
@@ -44,9 +44,9 @@ describe CC::Yaml::Parser::Psych do
     YAML
 
     parsed_yaml = CC::Yaml.parse yaml
-    config = parsed_yaml["engines"]["duplication"].config
+    config = parsed_yaml.engines["duplication"].config
 
-    assert !config['languages'].nil?
-    assert_equal config['languages'], ["ruby", "javascript"]
+    assert !config["languages"].nil?
+    assert_equal config["languages"], ["ruby", "javascript"]
   end
 end
