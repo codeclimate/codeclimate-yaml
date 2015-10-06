@@ -10,6 +10,7 @@ module CC
       autoload :GlobList, "cc/yaml/nodes/glob_list"
       autoload :LanguageList, "cc/yaml/nodes/language_list"
       autoload :Mapping, "cc/yaml/nodes/mapping"
+      autoload :NestedConfig, "cc/yaml/nodes/nested_config"
       autoload :Node, "cc/yaml/nodes/node"
       autoload :OpenMapping, "cc/yaml/nodes/open_mapping"
       autoload :Ratings, "cc/yaml/nodes/ratings"

@@ -35,7 +35,7 @@ module CC::Yaml
         define_method("#{key}?") { | | !!self[key]     } unless method_defined? "#{key}?"
       end
 
-      def self.subnode_for(key)
+      def self.subnode_for_key(key)
         mapping[aliases.fetch(key.to_s, key.to_s)]
       end
 
@@ -72,13 +72,12 @@ module CC::Yaml
       end
 
       def visit_key_value(visitor, key, value)
-        node = subnode_for(key)
-        self[key] = node
-        visitor.accept(node, value)
+        node = subnode_for_key(key)
+        assign_node_and_visit(node, key, value, visitor)
       end
 
       def set_warnings(key)
-        if subnode_for(key)
+        if subnode_for_key(key)
           check_duplicates(key)
         else
           warning("unexpected key %p, dropping", key)
@@ -114,8 +113,8 @@ module CC::Yaml
         self.class.mapping.include? key
       end
 
-      def subnode_for(key)
-        type = self.class.subnode_for(key)
+      def subnode_for_key(key)
+        type = self.class.subnode_for_key(key)
         type.new(self) if type
       end
 
@@ -141,7 +140,7 @@ module CC::Yaml
       def verify_required
         self.class.required.each do |key|
           next if @mapping.include? key
-          type = self.class.subnode_for(key)
+          type = self.class.subnode_for_key(key)
           if type.has_default?
             warning "missing key %p, defaulting to %p", key, type.default
             @mapping[key] = type.new(self)
@@ -182,6 +181,11 @@ module CC::Yaml
       end
 
       protected
+
+      def assign_node_and_visit(node, key, value, visitor)
+        self[key] = node
+        visitor.accept(node, value)
+      end
 
       def dup_values
         duped_mapping = @mapping.map { |key, value| [key.dup, value.dup] }

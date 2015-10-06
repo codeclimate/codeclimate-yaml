@@ -1,7 +1,7 @@
 module CC
   module Yaml
     module Nodes
-      class EngineConfig < OpenMapping
+      class EngineConfig < NestedConfig
         prefix_scalar :file
       end
     end
