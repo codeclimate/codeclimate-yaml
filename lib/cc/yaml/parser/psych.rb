@@ -1,5 +1,5 @@
-require 'psych'
-require 'delegate'
+require "psych"
+require "delegate"
 
 module CC::Yaml
   module Parser
@@ -37,14 +37,14 @@ module CC::Yaml
       TRUE      = /\A(?:y|Y|yes|Yes|YES|true|True|TRUE|on|On|ON)\z/
       FALSE     = /\A(?:n|N|no|No|NO|false|False|FALSE|off|Off|OFF)\z/
       REGEXP    = /\A!(?:ruby\/)?regexp\z/
-      REG_FLAGS = { 'i' => Regexp::IGNORECASE, 'm' => Regexp::MULTILINE, 'x' => Regexp::EXTENDED }
+      REG_FLAGS = { "i" => Regexp::IGNORECASE, "m" => Regexp::MULTILINE, "x" => Regexp::EXTENDED }
       FORMATS   = {
-        '!bool'      => Regexp.union(TRUE, FALSE),
-        '!float'     => ::Psych::ScalarScanner::FLOAT,
-        '!null'      => /\A(:?~|null|Null|NULL|)\z/,
-        '!timestamp' => ::Psych::ScalarScanner::TIME,
-        '!int'       => ::Psych::ScalarScanner::INTEGER,
-        '!regexp'    => /\A\/(.*)\/([imx]*)\z/
+        "!bool"      => Regexp.union(TRUE, FALSE),
+        "!float"     => ::Psych::ScalarScanner::FLOAT,
+        "!null"      => /\A(:?~|null|Null|NULL|)\z/,
+        "!timestamp" => ::Psych::ScalarScanner::TIME,
+        "!int"       => ::Psych::ScalarScanner::INTEGER,
+        "!regexp"    => /\A\/(.*)\/([imx]*)\z/,
       }
 
       if defined? ::Psych::ClassLoader
@@ -127,10 +127,10 @@ module CC::Yaml
         when SET              then node.visit_sequence self, SetNode.new(value)
         when SEQ              then node.visit_sequence self, value
         when nil
-          if value.children.size == 2 and value.children.first.value == 'secure'
+          if value.children.size == 2 and value.children.first.value == "secure"
             secret_value = value.children.last
             if secret_value.is_a? ::Psych::Nodes::Scalar
-              secret_value.tag ||= '!secure'
+              secret_value.tag ||= "!secure"
               node.visit_scalar(self, :secure, secret_value, false)
             else
               node.visit_unexpected(self, value, "secret value needs to be a string")
@@ -179,16 +179,16 @@ module CC::Yaml
 
       def scalar_tag(value)
         return value.tag if value.tag
-        return '!str' if value.quoted
+        return "!str" if value.quoted
         FORMATS.each do |tag, format|
           return tag if value.value =~ format
         end
-        '!str'
+        "!str"
       end
 
       def regexp(pattern)
         return pattern if pattern.is_a? Regexp
-        return Regexp.new(pattern) unless pattern =~ FORMATS['!regexp']
+        return Regexp.new(pattern) unless pattern =~ FORMATS["!regexp"]
         flag = $2.chars.inject(0) { |f,c| f | REG_FLAGS.fetch(c, 0) }
         Regexp.new($1, flag)
       rescue RegexpError => error
@@ -198,15 +198,15 @@ module CC::Yaml
       def cast(type, value)
         case type
         when :str    then value.value
-        when :binary then value.value.unpack('m').first
+        when :binary then value.value.unpack("m").first
         when :bool   then value.value !~ FALSE
         when :float  then Float   @scanner.tokenize(value.value)
         when :int    then Integer @scanner.tokenize(value.value)
         when :time   then @scanner.parse_time(value.value)
-        when :secure then SecureString.new(value.value, value.tag != '!decrypted')
+        when :secure then SecureString.new(value.value, value.tag != "!decrypted")
         when :regexp then regexp(value.value)
         when :null   then nil
-        else raise ArgumentError, 'unknown scalar type %p' % type
+        else raise ArgumentError, "unknown scalar type %p" % type
         end
       end
 

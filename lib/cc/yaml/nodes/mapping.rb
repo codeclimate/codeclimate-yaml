@@ -24,7 +24,7 @@ module CC::Yaml
           when Symbol then aliases[key.to_s] = options[:to].to_s
           when Module then mapping[key.to_s] = options[:to]
           when nil    then mapping[key.to_s] = Nodes[key]
-          else raise ArgumentError, 'unexpected value for to: %p' % options[:to]
+          else raise ArgumentError, "unexpected value for to: %p" % options[:to]
           end
         end
       end
@@ -153,7 +153,7 @@ module CC::Yaml
       def verify_errors
         @mapping.delete_if do |key, value|
           if value.errors?
-            warning "dropping %p section: %s", key, value.errors.join(', ')
+            warning "dropping %p section: %s", key, value.errors.join(", ")
             true
           end
         end
