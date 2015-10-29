@@ -16,7 +16,7 @@ module CC
       end
 
       def serialize_float(value)
-        raise NotSupportedError, 'cannot serialize infinity as JSON' if value.infinite?
+        raise NotSupportedError, "cannot serialize infinity as JSON" if value.infinite?
         "#{value}"
       end
 
@@ -29,15 +29,15 @@ module CC
       end
 
       def serialize_str(value)
-        string = value.encode('utf-8')
-        string.force_encoding('binary')
+        string = value.encode("utf-8")
+        string.force_encoding("binary")
         string.gsub!(/["\\\x0-\x1f]/) { MAP[$&] }
-        string.force_encoding('utf-8')
+        string.force_encoding("utf-8")
         "\"#{string}\""
       end
 
       def serialize_binary(value)
-        raise NotSupportedError, 'cannot serialize binary data as JSON'
+        raise NotSupportedError, "cannot serialize binary data as JSON"
       end
 
       def serialize_bool(value)
@@ -45,11 +45,11 @@ module CC
       end
 
       def serialize_mapping(node)
-        lines('{%s}', super.map { |key, value| key_value(key, value) })
+        lines("{%s}", super.map { |key, value| key_value(key, value) })
       end
 
       def serialize_sequence(node)
-        lines('[%s]', super)
+        lines("[%s]", super)
       end
 
       def key_value(key, value, wrapper = "%s")
@@ -58,7 +58,7 @@ module CC
       end
 
       def lines(wrapper, lines)
-        return wrapper % lines.join(',') unless pretty?
+        return wrapper % lines.join(",") unless pretty?
         return wrapper % "" if lines.empty?
         return wrapper % " #{lines.first} " unless lines.size > 1 or  lines.first.include?("\n") or lines.first.size > 50
         lines = "\n  " + lines.join(",\n").strip.gsub("\n", "\n  ") + "\n"

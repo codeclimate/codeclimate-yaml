@@ -1,4 +1,4 @@
-require 'secure_string'
+require "secure_string"
 
 module CC::Yaml
   module Serializer
@@ -23,7 +23,7 @@ module CC::Yaml
         when Nodes::Scalar   then serialize_scalar(node)
         when Nodes::Mapping  then serialize_mapping(node)
         when Nodes::Sequence then serialize_sequence(node)
-        else raise NotSupportedError, 'do not know how to serialize %p' % node.class
+        else raise NotSupportedError, "do not know how to serialize %p" % node.class
         end
       end
 
@@ -57,13 +57,13 @@ module CC::Yaml
       def serialize_secure(value)
         case options[:secure]
         when :decrypted
-          raise ArgumentError, 'secure option is set decrypted, but a secure value is not decrypted' unless value.decrypted?
+          raise ArgumentError, "secure option is set decrypted, but a secure value is not decrypted" unless value.decrypted?
           serialize_decrypted(value)
         when :encrypted
-          raise ArgumentError, 'secure option is set encrypted, but a secure value is not encrypted' unless value.encrypted?
+          raise ArgumentError, "secure option is set encrypted, but a secure value is not encrypted" unless value.encrypted?
           serialize_encrypted(value)
         else
-          raise ArgumentError, 'unexpected value for secure option: %p' % options[:secure] if options[:secure]
+          raise ArgumentError, "unexpected value for secure option: %p" % options[:secure] if options[:secure]
           value.encrypted? ? serialize_encrypted(value) : serialize_decrypted(value)
         end
       end
@@ -93,7 +93,7 @@ module CC::Yaml
       end
 
       def serialize_value(node)
-        raise NotSupportedError, 'cannot serialize %p with %p' % [node.class, self.class]
+        raise NotSupportedError, "cannot serialize %p with %p" % [node.class, self.class]
       end
 
       def serialize_root(node)
