@@ -35,4 +35,15 @@ describe CC::Yaml::Nodes::EngineList do
     config.engines.must_equal("rubocop" => { "enabled" => true })
     config.languages.must_equal("Ruby" => true, "JavaScript" => true)
   end
+
+  specify "with invalid data, emits an error error" do
+    config = CC::Yaml.parse <<-YAML
+    engines:
+      - "not_an_engine"
+    exclude_paths:
+      - "*.rb"
+      - "test/*"
+    YAML
+    config.errors.must_include "invalid \"engines\" section: unexpected sequence. #{CC::Yaml::Nodes::EngineList::ERROR_MESSAGE}"
+  end
 end
