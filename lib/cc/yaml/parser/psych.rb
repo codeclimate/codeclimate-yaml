@@ -87,11 +87,12 @@ module CC::Yaml
         root.verify
         root.warnings.clear
         root.error("syntax error: %s", error.message)
+        root.parseable = false
         root
       end
 
       def check_for_analysis_key(root)
-        unless root.engines? || root.languages?
+        unless root.engines? || root.languages? || root.errors.any?
           root.error NO_ANALYSIS_KEY_FOUND_ERROR
         end
       end
