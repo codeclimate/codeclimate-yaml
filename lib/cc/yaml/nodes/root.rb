@@ -10,8 +10,12 @@ module CC
         map :languages, to: LanguageList
         map :ratings, to: Ratings
 
+        attr_accessor :parseable
+        alias_method :parseable?, :parseable
+
         def initialize
           super(nil)
+          @parseable = true
         end
 
         def nested_warnings(*)

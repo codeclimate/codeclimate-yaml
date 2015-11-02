@@ -13,6 +13,7 @@ describe CC::Yaml do
       config = CC::Yaml.parse("yargle: poskgp;aerwet ;rgr:  ")
       config.class.must_equal CC::Yaml::Nodes::Root
       config.errors.must_equal ["syntax error: (<unknown>): mapping values are not allowed in this context at line 1 column 27"]
+      config.parseable?.must_equal false
     end
   end
 

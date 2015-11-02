@@ -87,6 +87,7 @@ module CC::Yaml
         root.verify
         root.warnings.clear
         root.error("syntax error: %s", error.message)
+        root.parseable = false
         root
       end
 
