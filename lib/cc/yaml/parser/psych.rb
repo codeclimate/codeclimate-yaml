@@ -91,7 +91,7 @@ module CC::Yaml
       end
 
       def check_for_analysis_key(root)
-        unless root.engines? || root.languages?
+        unless root.engines? || root.languages? || root.errors.any?
           root.error NO_ANALYSIS_KEY_FOUND_ERROR
         end
       end
