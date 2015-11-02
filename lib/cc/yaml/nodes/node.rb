@@ -65,23 +65,23 @@ module CC
         end
 
         def visit_mapping(visitor, value)
-          error("unexpected mapping")
+          visit_unexpected(visitor, value, "unexpected mapping")
         end
 
         def visit_pair(visitor, key, value)
-          error("unexpected pair")
+          visit_unexpected(visitor, value, "unexpected pair")
         end
 
         def visit_scalar(visitor, type, value, implicit = true)
-          error("unexpected scalar") unless type == :null
+          visit_unexpected(visitor, value, "unexpected scalar") unless type == :null
         end
 
         def visit_sequence(visitor, value)
-          error("unexpected sequence")
+          visit_unexpected(visitor, value, "unexpected sequence")
         end
 
         def visit_child(visitor, value)
-          error("unexpected child")
+          visit_unexpected(visitor, value, "unexpected child")
         end
 
         def respond_to_missing?(method, include_private = false)
