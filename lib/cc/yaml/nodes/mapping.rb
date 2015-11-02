@@ -153,7 +153,7 @@ module CC::Yaml
       def verify_errors
         @mapping.delete_if do |key, value|
           if value.errors?
-            warning "dropping %p section: %s", key, value.errors.join(", ")
+            error "invalid %p section: %s", key, value.errors.join(", ")
             true
           end
         end
