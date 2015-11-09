@@ -9,6 +9,7 @@ module CC
         map :exclude_paths, to: GlobList
         map :languages, to: LanguageList
         map :ratings, to: Ratings
+        map :checkout_submodules, to: Scalar[:bool]
 
         attr_accessor :parseable
         alias_method :parseable?, :parseable
