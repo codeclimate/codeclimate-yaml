@@ -6,6 +6,7 @@ module CC
         map :checks, to: Checks
         map :config, to: EngineConfig
         map :exclude_fingerprints, to: Sequence
+        map :exclude_paths, to: GlobList
       end
     end
   end

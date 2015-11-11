@@ -88,4 +88,21 @@ engines:
       "1ffc9f9cc376341aa08bb5973c511ac3"
     ])
   end
+
+  specify "exclude_paths" do
+    yaml = CC::Yaml.parse! <<-YAML
+engines:
+  rubocop:
+    enabled: true
+    exclude_paths:
+      - "**/*.rs"
+      - "**/*.ex"
+    YAML
+
+    config = yaml.engines["rubocop"].exclude_paths
+    config.must_equal([
+      "**/*.rs",
+      "**/*.ex"
+    ])
+  end
 end
