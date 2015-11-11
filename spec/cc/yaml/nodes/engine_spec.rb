@@ -77,12 +77,12 @@ engines:
 engines:
   rubocop:
     enabled: true
-    ignored_issues:
+    exclude_fingerprints:
       - be121740bf988b2225a313fa1f107ca1
       - 1ffc9f9cc376341aa08bb5973c511ac3
     YAML
 
-    config = yaml.engines["rubocop"].ignored_issues
+    config = yaml.engines["rubocop"].exclude_fingerprints
     config.must_equal([
       "be121740bf988b2225a313fa1f107ca1",
       "1ffc9f9cc376341aa08bb5973c511ac3"
