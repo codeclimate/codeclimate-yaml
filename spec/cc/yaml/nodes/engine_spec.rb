@@ -71,4 +71,21 @@ engines:
     config = yaml.engines["phpcodesniffer"].config
     config.must_equal("file" => "config.php")
   end
+
+  specify "ignored_issues" do
+    yaml = CC::Yaml.parse! <<-YAML
+engines:
+  rubocop:
+    enabled: true
+    ignored_issues:
+      - be121740bf988b2225a313fa1f107ca1
+      - 1ffc9f9cc376341aa08bb5973c511ac3
+    YAML
+
+    config = yaml.engines["rubocop"].ignored_issues
+    config.must_equal([
+      "be121740bf988b2225a313fa1f107ca1",
+      "1ffc9f9cc376341aa08bb5973c511ac3"
+    ])
+  end
 end
