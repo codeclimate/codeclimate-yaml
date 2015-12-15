@@ -56,4 +56,13 @@ describe CC::Yaml::Nodes::EngineList do
     YAML
     config.errors.must_include "invalid \"engines\" section: #{CC::Yaml::Nodes::EngineList::EMPTY_ERROR_MESSAGE}"
   end
+
+  specify "with only disabled engines, emits an error" do
+    config = CC::Yaml.parse <<-YAML
+    engines:
+      fixme:
+        enabled: false
+    YAML
+    config.errors.must_include("invalid \"engines\" section: #{CC::Yaml::Nodes::EngineList::NO_ENABLED_ERROR_MESSAGE}")
+  end
 end

@@ -14,6 +14,8 @@ engines:
   specify 'disabled' do
     config = CC::Yaml.parse! <<-YAML
 engines:
+  fixme:
+    enabled: true
   rubocop:
     enabled: false
     YAML
