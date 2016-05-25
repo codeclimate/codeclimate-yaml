@@ -32,6 +32,27 @@ engines:
     json.must_equal %{{"enabled":true}}
   end
 
+  specify 'channel defaulted' do
+    config = CC::Yaml.parse! <<-YAML
+engines:
+  rubocop:
+    enabled: true
+    YAML
+
+    config.engines["rubocop"].channel.must_equal "stable"
+  end
+
+  specify 'channel present' do
+    config = CC::Yaml.parse! <<-YAML
+engines:
+  rubocop:
+    enabled: true
+    channel: beta
+    YAML
+
+    config.engines["rubocop"].channel.must_equal "beta"
+  end
+
   specify 'checks' do
     config = CC::Yaml.parse! <<-YAML
 engines:
