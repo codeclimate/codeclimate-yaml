@@ -3,6 +3,11 @@ require "spec_helper"
 describe "Yaml file with everything" do
   let(:yaml) do
 <<-YAML
+dependencies:
+  files:
+    - "http://example.com/foo.json"
+    - url: "https://example.com/bar.yml"
+      path: baz.yml
 engines:
   rubocop:
     enabled: true
