@@ -3,9 +3,12 @@ module CC
     module Nodes
       autoload :Check, "cc/yaml/nodes/check"
       autoload :Checks, "cc/yaml/nodes/checks"
+      autoload :Dependencies, "cc/yaml/nodes/dependencies"
       autoload :Engine, "cc/yaml/nodes/engine"
       autoload :EngineConfig, "cc/yaml/nodes/engine_config"
       autoload :EngineList, "cc/yaml/nodes/engine_list"
+      autoload :FileDependency, "cc/yaml/nodes/file_dependency"
+      autoload :FileDependencyList, "cc/yaml/nodes/file_dependency_list"
       autoload :Glob, "cc/yaml/nodes/glob"
       autoload :GlobList, "cc/yaml/nodes/glob_list"
       autoload :LanguageList, "cc/yaml/nodes/language_list"
