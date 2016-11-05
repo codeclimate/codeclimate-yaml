@@ -1,7 +1,7 @@
 module CC
   module Yaml
     module Nodes
-      class Dependencies < OpenMapping
+      class Dependencies < Mapping
         map :files, to: FileDependencyList
       end
     end
