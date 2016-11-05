@@ -8,13 +8,13 @@ module CC::Yaml::Nodes
       end
     end
 
-    it "warns for invalid data" do
-      example = parse_example(<<-EOYAML)
+    it "errors for invalid data" do
+      config = CC::Yaml.parse(<<-EOYAML)
         example:
           foo: bar
       EOYAML
 
-      example.warnings.must_equal(["unexpected mapping"])
+      config.errors.must_equal(["invalid \"example\" section: unexpected mapping"])
     end
 
     it "parses empty values" do

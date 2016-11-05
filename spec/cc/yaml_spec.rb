@@ -15,6 +15,21 @@ describe CC::Yaml do
       config.errors.must_equal ["syntax error: (<unknown>): mapping values are not allowed in this context at line 1 column 27"]
       config.parseable?.must_equal false
     end
+
+    it "bubbles up dependency errors" do
+      config = CC::Yaml.parse(<<-YML)
+dependencies:
+  files:
+    - not://valid
+engines:
+  rubocop:
+    enabled: true
+YML
+
+      config.class.must_equal CC::Yaml::Nodes::Root
+      config.errors.must_equal ["invalid \"dependencies\" section: invalid \"files\" section: invalid URL: not://valid, missing key \"url\", missing key \"path\""]
+      config.parseable?.must_equal true
+    end
   end
 
   describe ".parse!" do

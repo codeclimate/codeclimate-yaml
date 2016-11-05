@@ -75,7 +75,7 @@ module CC::Yaml
       def verify_children
         @children.delete_if do |child|
           next unless child.errors?
-          child.errors.each { |message| warning(message) }
+          child.errors.each { |message| error(message) }
           true
         end
       end
