@@ -160,6 +160,17 @@ module CC::Yaml
         end
       end
 
+      def node_wrapper_class(value)
+        case value
+        when ::Psych::Nodes::Scalar   then ::CC::Yaml::Nodes::Scalar
+        when ::Psych::Nodes::Mapping  then ::CC::Yaml::Nodes::OpenMapping
+        when ::Psych::Nodes::Sequence then ::CC::Yaml::Nodes::Sequence
+        when ::Psych::Nodes::Document then ::CC::Yaml::Nodes::OpenMapping
+        when ::Psych::Nodes::Stream   then ::CC::Yaml::Nodes::Sequence
+        else raise ArgumentError, "Can't coerce #{value.inspect}"
+        end
+      end
+
       def simple(value)
         case value
         when ::Psych::Nodes::Scalar   then value.value

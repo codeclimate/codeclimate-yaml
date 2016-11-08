@@ -8,13 +8,14 @@ module CC::Yaml::Nodes
       end
     end
 
-    it "errors for invalid data" do
+    it "parses a single hash value" do
       config = CC::Yaml.parse(<<-EOYAML)
         example:
           foo: bar
       EOYAML
 
-      config.errors.must_equal(["invalid \"example\" section: unexpected mapping"])
+      expected = { "foo" => "bar" }
+      config.example.must_equal([{ "foo" => "bar" }])
     end
 
     it "parses empty values" do
@@ -38,6 +39,22 @@ module CC::Yaml::Nodes
       EOYAML
 
       example.must_equal(["foo", "bar", "baz"])
+    end
+
+    it "parses complex arrays" do
+      example = parse_example(<<-EOYAML)
+        example:
+        - foo: 123
+        - bar:
+            baz: foo
+        - buzz
+      EOYAML
+
+      example.must_equal([
+        { "foo" => "123" },
+        { "bar" => { "baz" => "foo" } },
+        "buzz",
+      ])
     end
 
     def parse_example(yaml)

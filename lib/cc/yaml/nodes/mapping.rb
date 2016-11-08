@@ -65,19 +65,21 @@ module CC::Yaml
 
       def visit_pair(visitor, key, value)
         key = visitor.generate_key(self, key)
-        unless set_warnings(key)
+        unless set_warnings(visitor, key, value)
           check_incompatibility(key)
           visit_key_value(visitor, key, value)
+        #else
+          #$stderr.puts "WARNINGS? self=#{warnings.inspect}"
         end
       end
 
       def visit_key_value(visitor, key, value)
-        node = subnode_for_key(key)
+        node = subnode_for(visitor, key, value)
         assign_node_and_visit(node, key, value, visitor)
       end
 
-      def set_warnings(key)
-        if subnode_for_key(key)
+      def set_warnings(visitor, key, value)
+        if subnode_for(visitor, key, value)
           check_duplicates(key)
         else
           warning("unexpected key %p, dropping", key)
@@ -113,7 +115,7 @@ module CC::Yaml
         self.class.mapping.include? key
       end
 
-      def subnode_for_key(key)
+      def subnode_for(_visitor, key, _value)
         type = self.class.subnode_for_key(key)
         type.new(self) if type
       end
@@ -125,7 +127,9 @@ module CC::Yaml
       def ==(other)
         other = other.mapping if other.is_a? Mapping
         if other.respond_to? :to_hash and other.to_hash.size == @mapping.size
-          other.to_hash.all? { |k, v| include?(k) and self[k] == v }
+          other.to_hash.all? { |k, v|
+            #$stderr.puts "Mapping#== k = #{k.inspect} v = #{v.inspect}"
+            include?(k) and self[k] == v }
         else
           false
         end
