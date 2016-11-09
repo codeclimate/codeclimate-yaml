@@ -19,12 +19,28 @@ engines:
       things:
       - one
       - two
+  duplication:
+    enabled: true
+    config:
+      languages:
+        ruby:
+          mass_threshold: 20
+        python:
+  weirdo:
+    enabled: false
+    config:
+      thing:
+      - hash:
+          key: foo
+      - 2
+      - bar
 checkout_submodules: true
 ratings:
   paths:
   - "**.rb"
 exclude_paths:
 - "spec/**/*"
+- "**/path.rb"
 YAML
   end
 

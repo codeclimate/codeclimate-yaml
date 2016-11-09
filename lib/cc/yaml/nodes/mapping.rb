@@ -68,8 +68,6 @@ module CC::Yaml
         unless set_warnings(visitor, key, value)
           check_incompatibility(key)
           visit_key_value(visitor, key, value)
-        #else
-          #$stderr.puts "WARNINGS? self=#{warnings.inspect}"
         end
       end
 
@@ -127,9 +125,7 @@ module CC::Yaml
       def ==(other)
         other = other.mapping if other.is_a? Mapping
         if other.respond_to? :to_hash and other.to_hash.size == @mapping.size
-          other.to_hash.all? { |k, v|
-            #$stderr.puts "Mapping#== k = #{k.inspect} v = #{v.inspect}"
-            include?(k) and self[k] == v }
+          other.to_hash.all? { |k, v| include?(k) and self[k] == v }
         else
           false
         end
