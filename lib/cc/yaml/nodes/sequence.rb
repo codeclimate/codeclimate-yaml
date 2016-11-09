@@ -23,7 +23,6 @@ module CC::Yaml
       end
 
       def visit_scalar(visitor, type, value, implicit = true)
-        #$stderr.puts "sequence#visit_scalar value=#{value.inspect}"
         visit_child(visitor, value) if type != :null
       end
 
@@ -36,7 +35,6 @@ module CC::Yaml
           if self.class.type
             self.class.type.new(self)
           else
-            #$stderr.puts "visit_child new  wrapper value=#{value.inspect} class=#{visitor.node_wrapper_class(value)}"
             visitor.node_wrapper_class(value).new(self)
           end
         visitor.accept(child, value)
