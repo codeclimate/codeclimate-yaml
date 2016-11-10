@@ -46,7 +46,15 @@ describe CC::Yaml::Nodes::FileDependency do
   describe "validations" do
     it "validates url" do
       config = CC::Yaml.parse(<<-EOYAML)
-        example: "not://valid"
+        example: "%%not-a-url"
+      EOYAML
+
+      config.errors[0].must_match(/invalid URL/)
+    end
+
+    it "validates url schema" do
+      config = CC::Yaml.parse(<<-EOYAML)
+        example: "ftp://example.com/path"
       EOYAML
 
       config.errors[0].must_match(/invalid URL/)
