@@ -1,9 +1,9 @@
 require "spec_helper"
 
-describe CC::Yaml::Nodes::FileDependency do
+describe CC::Yaml::Nodes::Fetch do
   def setup
     CC::Yaml::Nodes::Root.class_eval do
-      map :example, to: CC::Yaml::Nodes::FileDependency
+      map :example, to: CC::Yaml::Nodes::Fetch
     end
   end
 

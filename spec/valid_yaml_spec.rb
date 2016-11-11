@@ -3,8 +3,8 @@ require "spec_helper"
 describe "Yaml file with everything" do
   let(:yaml) do
 <<-YAML
-dependencies:
-  files:
+prepare:
+  fetch:
     - "http://example.com/foo.json"
     - url: "https://example.com/bar.yml"
       path: baz.yml
