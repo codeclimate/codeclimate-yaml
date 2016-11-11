@@ -5,7 +5,7 @@ module CC
   module Yaml
     module Nodes
       class Root < Mapping
-        map :dependencies, to: Dependencies
+        map :prepare, to: Prepare
         map :engines, to: EngineList
         map :exclude_paths, to: GlobList
         map :languages, to: LanguageList
