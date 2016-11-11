@@ -10,14 +10,14 @@ describe CC::Yaml::Nodes::Prepare do
   it "parses a sequence" do
     example = parse_example(<<-EOYAML)
       example:
-        fetch:
+        fetch_files:
           - "http://example.com/file.json"
           - url: http://example.com/url
             path: foo.txt
     EOYAML
 
     example.must_equal({
-      fetch: [
+      fetch_files: [
         {
           url: "http://example.com/file.json",
           path: "file.json",

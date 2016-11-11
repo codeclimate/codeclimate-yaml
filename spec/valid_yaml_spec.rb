@@ -4,7 +4,7 @@ describe "Yaml file with everything" do
   let(:yaml) do
 <<-YAML
 prepare:
-  fetch:
+  fetch_files:
     - "http://example.com/foo.json"
     - url: "https://example.com/bar.yml"
       path: baz.yml

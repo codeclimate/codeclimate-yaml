@@ -19,7 +19,7 @@ describe CC::Yaml do
     it "bubbles up dependency errors" do
       config = CC::Yaml.parse(<<-YML)
 prepare:
-  fetch:
+  fetch_files:
     - not://valid
 engines:
   rubocop:
@@ -27,7 +27,7 @@ engines:
 YML
 
       config.class.must_equal CC::Yaml::Nodes::Root
-      config.errors.must_equal ["invalid \"prepare\" section: invalid \"fetch\" section: invalid URL: not://valid, missing key \"url\", missing key \"path\""]
+      config.errors.must_equal ["invalid \"prepare\" section: invalid \"fetch_files\" section: invalid URL: not://valid, missing key \"url\", missing key \"path\""]
       config.parseable?.must_equal true
     end
   end

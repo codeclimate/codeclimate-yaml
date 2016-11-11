@@ -2,7 +2,7 @@ module CC
   module Yaml
     module Nodes
       class FetchList < Sequence
-        type Fetch
+        type FileFetch
       end
     end
   end

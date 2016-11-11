@@ -4,7 +4,7 @@ require "pathname"
 module CC
   module Yaml
     module Nodes
-      class Fetch < Mapping
+      class FileFetch < Mapping
         INVALID_URL_ERROR = "invalid URL: %s".freeze
         EMPTY_PATH_ERROR = "path cannot be empty".freeze
         ABSOLUTE_PATH_ERROR = "absolute path \"%s\" is invalid".freeze
