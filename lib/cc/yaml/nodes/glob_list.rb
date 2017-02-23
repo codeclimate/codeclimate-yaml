@@ -3,6 +3,10 @@ module CC
     module Nodes
       class GlobList < Sequence
         type Glob
+
+        def allow_child?(child)
+          !child.value.nil?
+        end
       end
     end
   end
