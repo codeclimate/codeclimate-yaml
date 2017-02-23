@@ -7,7 +7,8 @@ module CC
         end
 
         def value
-          @value.sub(%r{\*\*([^\/]*)?$}, "**/*\\1") # normalize glob format: app/** => app/**/* and **.rb => **/*.rb
+          # normalize glob format: app/** => app/**/* and **.rb => **/*.rb
+          @value && @value.sub(%r{\*\*([^\/]*)?$}, "**/*\\1")
         end
       end
     end
