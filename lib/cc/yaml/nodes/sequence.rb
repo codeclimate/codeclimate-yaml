@@ -38,7 +38,16 @@ module CC::Yaml
             visitor.node_wrapper_class(value).new(self)
           end
         visitor.accept(child, value)
-        @children << child
+
+        if allow_child?(child)
+          @children << child
+        else
+          warning("Discarding invalid value for %s: %s", self.class, child.value.inspect)
+        end
+      end
+
+      def allow_child?(*)
+        true
       end
 
       def nested_warnings(*prefix)
