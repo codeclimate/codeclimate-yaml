@@ -11,6 +11,7 @@ module CC
       autoload :FetchList, "cc/yaml/nodes/fetch_list"
       autoload :Glob, "cc/yaml/nodes/glob"
       autoload :GlobList, "cc/yaml/nodes/glob_list"
+      autoload :IssueOverride, "cc/yaml/nodes/issue_override"
       autoload :LanguageList, "cc/yaml/nodes/language_list"
       autoload :Mapping, "cc/yaml/nodes/mapping"
       autoload :NestedConfig, "cc/yaml/nodes/nested_config"
@@ -20,6 +21,7 @@ module CC
       autoload :Root, "cc/yaml/nodes/root"
       autoload :Scalar, "cc/yaml/nodes/scalar"
       autoload :Sequence, "cc/yaml/nodes/sequence"
+      autoload :Severity, "cc/yaml/nodes/severity"
 
       def self.[](key)
         return key if key.respond_to? :new

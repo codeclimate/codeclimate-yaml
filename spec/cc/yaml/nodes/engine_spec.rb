@@ -126,4 +126,16 @@ engines:
       "**/*.ex"
     ])
   end
+
+  specify "issue_override" do
+    config = CC::Yaml.parse! <<-YAML
+engines:
+  rubocop:
+    enabled: true
+    issue_override:
+      severity: info
+    YAML
+    engine = config.engines["rubocop"]
+    engine.issue_override.must_equal("severity" => "info")
+  end
 end
