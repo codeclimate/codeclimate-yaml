@@ -10,6 +10,7 @@ module CC
         map :config, to: EngineConfig
         map :exclude_fingerprints, to: Sequence
         map :exclude_paths, to: GlobList
+        map :issue_override, to: IssueOverride
 
         def channel
           self["channel"] || DEFAULT_CHANNEL
